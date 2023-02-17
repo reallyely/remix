@@ -1,4 +1,4 @@
-import type { ActionArgs, LoaderArgs } from "@remix-run/node";
+import { ActionArgs, LoaderArgs, redirect } from "@remix-run/node";
 import { json } from "@remix-run/node";
 import { Form, Link, NavLink, Outlet, useLoaderData } from "@remix-run/react";
 import DeleteIcon from "@mui/icons-material/Delete";
@@ -18,7 +18,8 @@ export async function loader({ request }: LoaderArgs) {
 
 export async function action({ request }: ActionArgs) {
   const id = (await request.formData()).get("id");
-  return await deleteProject({ id });
+  const res = await deleteProject({ id });
+  return res;
 }
 export default function ProjectsPage() {
   const data = useLoaderData<typeof loader>();
